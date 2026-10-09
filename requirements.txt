@@ -1,0 +1,11 @@
+pandas
+numpy
+matplotlib
+scikit-learn
+pypdf
+# optional, for the RAG section
+faiss-cpu
+langchain
+langchain-community
+langchain-ollama
+gradio
