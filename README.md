@@ -1,6 +1,6 @@
 # Antibiotic Policy Engine for Indian ICUs
 
-**Live demo:** https://YOUR-GITHUB-USERNAME.github.io/antibiotic-policy-engine/  **Try the upload yourself:** download the sample file [icu_B_whonet.csv](https://github.com/akil-2069/Antibiotic-policy-engine/blob/main/data/icu_B_whonet.csv), then upload it in the demo's "Try your own ICU" box.)*
+**Live demo:** https://claude.ai/artifact/DXDoSdX85y9jTkahWfz7Ls  **Try the upload yourself:** download the sample file [icu_B_whonet.csv](https://github.com/akil-2069/Antibiotic-policy-engine/blob/main/data/icu_B_whonet.csv), then upload it in the demo's "Try your own ICU" box.)*
 
 ## The problem
 
