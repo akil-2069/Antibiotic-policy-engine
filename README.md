@@ -1,6 +1,6 @@
 # Antibiotic Policy Engine for Indian ICUs
 
-**Live demo:** https://akil-2069.github.io/Antibiotic-policy-engine/
+**Live demo:** https://akil-2069.github.io/Antibiotic-policy-engine/?v=2
 **Try yourself now by uploading any icu report given in "Try your own icu" box** 
 
 ## The problem
