@@ -1,6 +1,7 @@
 # Antibiotic Policy Engine for Indian ICUs
 
-**Live demo:** https://claude.ai/artifact/DXDoSdX85y9jTkahWfz7Ls  **Try yourself now by uploading any icu report given in demo page** 
+**Live demo:** https://claude.ai/artifact/DXDoSdX85y9jTkahWfz7Ls  
+**Try yourself now by uploading any icu report given in "Try your own icu" box** 
 
 ## The problem
 
