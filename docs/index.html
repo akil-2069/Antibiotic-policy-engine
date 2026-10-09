@@ -89,6 +89,15 @@ button.ghost{background:transparent;color:var(--accent)}
 .steps b{color:var(--ink)}
 footer{margin-top:28px;font-size:.8rem;color:var(--muted);max-width:80ch}
 .err{color:var(--stop);font-size:.82rem}
+.okmsg{color:var(--safe);background:var(--safe-bg);font-size:.82rem;padding:6px 10px;border-radius:6px}
+.samples{display:flex;flex-direction:column;gap:8px;border-top:1px solid var(--line);padding-top:12px}
+.slbl{font-weight:600;font-size:.85rem}
+.slist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.slist li{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:6px 10px}
+.sname{display:flex;flex-direction:column;font-size:.88rem;min-width:0}
+.sact{display:flex;gap:10px;align-items:center}
+.sact a{color:var(--accent);font-weight:600;font-size:.85rem}
+button.sm{padding:4px 10px;font-size:.8rem}
 </style>
 
 <div class="wrap">
@@ -115,12 +124,25 @@ footer{margin-top:28px;font-size:.8rem;color:var(--muted);max-width:80ch}
         <label class="chk" for="pen"><input type="checkbox" id="pen"><span>Penicillin anaphylaxis<br><span class="note">Avoids pip-tazo, amox-clav</span></span></label>
       </fieldset>
     </div>
-    <div class="panel" style="display:flex;flex-direction:column;gap:8px">
+    <div class="panel" style="display:flex;flex-direction:column;gap:10px">
       <label class="f" for="upl">Try your own ICU
         <input type="file" id="upl" accept=".csv,text/csv">
       </label>
       <span class="note">WHONET-style CSV with columns PATIENT_ID, SPEC_TYPE (Blood, Resp-CAP, Resp-VAP, Peritoneal), ORGANISM and one column per drug code (MEM, COL, TZP…) holding S / I / R. The file stays in your browser.</span>
       <span class="err" id="uerr" hidden></span>
+      <span class="okmsg" id="uok" role="status" hidden></span>
+      <div class="samples">
+        <span class="slbl">No file handy? Try a sample</span>
+        <ul class="slist">
+          <li><div class="sname"><b>ICU C</b><span class="note">District hospital, 117 isolates</span></div>
+            <div class="sact"><button type="button" class="ghost sm" id="loadC">Load in demo</button><a href="https://github.com/akil-2069/Antibiotic-policy-engine/blob/main/data/icu_C_whonet.csv" target="_blank" rel="noopener">Download</a></div></li>
+          <li><div class="sname"><b>ICU B</b><span class="note">Secondary care, 687 isolates</span></div>
+            <div class="sact"><a href="https://github.com/akil-2069/Antibiotic-policy-engine/blob/main/data/icu_B_whonet.csv" target="_blank" rel="noopener">Download</a></div></li>
+          <li><div class="sname"><b>ICU A</b><span class="note">Tertiary care, 1,072 isolates</span></div>
+            <div class="sact"><a href="https://github.com/akil-2069/Antibiotic-policy-engine/blob/main/data/icu_A_whonet.csv" target="_blank" rel="noopener">Download</a></div></li>
+        </ul>
+        <span class="note">Download opens the file on GitHub. Click its download button (↓), then choose the file above to see the upload work end to end.</span>
+      </div>
     </div>
     <p class="note" style="margin:0">ICU A is a tertiary unit with high carbapenem resistance and ICU B is a secondary unit with lower resistance. Both are synthetic, set to roughly the ranges ICMR's AMR surveillance network reports.</p>
   </aside>
@@ -182,9 +204,8 @@ let selected=null, lastRecord=null;
 
 function fill(){
   $('icu').innerHTML=Object.keys(D.icus).map(k=>`<option value="${k}">${ICU_NAMES[k]||k}</option>`).join('');
-  const prev=$('syn').value;
   $('syn').innerHTML=Object.keys(D.specmap).map((s,i)=>`<option value="${i}">${s}</option>`).join('');
-  $('syn').value=prev||'1';
+  $('syn').value='1';
 }
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 function tierOf(p){return p==null?3:(p<=SAFE?1:(p<=CAUTION?2:3));}
@@ -281,28 +302,32 @@ function render(){
   fingerprint(record).then(fp=>{record.fingerprint=fp; lastRecord=record; $('audit').textContent=JSON.stringify(record,null,2);});
 }
 
-// ---- upload your own WHONET-style CSV
+// ---- upload your own WHONET-style CSV (same parser for uploaded files and the built-in sample)
+function loadCsv(text, label, key){
+  const err=$('uerr'); err.hidden=true; $('uok').hidden=true;
+  try{
+    const lines=text.replace(/\r/g,'').split('\n').filter(l=>l.trim());
+    const H=lines[0].split(',').map(h=>h.trim().toUpperCase());
+    const need=['PATIENT_ID','SPEC_TYPE','ORGANISM']; const miss=need.filter(n=>!H.includes(n));
+    if(miss.length) throw new Error('Missing column(s): '+miss.join(', ')+'.');
+    const di=D.drugs.map(d=>H.indexOf(d)); if(di.every(i=>i<0)) throw new Error('No drug columns found (expected codes like MEM, COL, TZP).');
+    const iP=H.indexOf('PATIENT_ID'), iS=H.indexOf('SPEC_TYPE'), iO=H.indexOf('ORGANISM');
+    const seen=new Set(), specs=[], orgs=[], rows=[];
+    for(const l of lines.slice(1)){ const c=l.split(','); const k=c[iP]+'|'+c[iO]+'|'+c[iS]; if(seen.has(k)) continue; seen.add(k);
+      if(!specs.includes(c[iS])) specs.push(c[iS]); if(!orgs.includes(c[iO])) orgs.push(c[iO]);
+      rows.push([specs.indexOf(c[iS]),orgs.indexOf(c[iO]),di.map(i=>{const v=i<0?'':(c[i]||'').trim().toUpperCase(); return v==='S'?'1':(v==='R'||v==='I')?'0':'-';}).join('')]); }
+    D.icus[key]={specs,orgs,rows}; ICU_NAMES[key]=`${label} (${rows.length} first isolates)`;
+    fill(); $('icu').value=key; selected=null; render();
+    const ok=$('uok'); ok.textContent=`Loaded ${ICU_NAMES[key]}. It is now selected in the ICU list and the results below use it.`; ok.hidden=false;
+    $('decision').scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block:'start'});
+  }catch(ex){ err.textContent=ex.message+' Check the column names and try again.'; err.hidden=false; }
+}
 $('upl').addEventListener('change',e=>{
-  const f=e.target.files[0]; if(!f) return; const err=$('uerr'); err.hidden=true;
-  const rd=new FileReader();
-  rd.onload=()=>{
-    try{
-      const lines=rd.result.replace(/\r/g,'').split('\n').filter(l=>l.trim());
-      const H=lines[0].split(',').map(h=>h.trim().toUpperCase());
-      const need=['PATIENT_ID','SPEC_TYPE','ORGANISM']; const miss=need.filter(n=>!H.includes(n));
-      if(miss.length) throw new Error('Missing column(s): '+miss.join(', '));
-      const di=D.drugs.map(d=>H.indexOf(d)); if(di.every(i=>i<0)) throw new Error('No drug columns found (expected codes like MEM, COL, TZP).');
-      const iP=H.indexOf('PATIENT_ID'), iS=H.indexOf('SPEC_TYPE'), iO=H.indexOf('ORGANISM');
-      const seen=new Set(), specs=[], orgs=[], rows=[];
-      for(const l of lines.slice(1)){ const c=l.split(','); const key=c[iP]+'|'+c[iO]+'|'+c[iS]; if(seen.has(key)) continue; seen.add(key);
-        if(!specs.includes(c[iS])) specs.push(c[iS]); if(!orgs.includes(c[iO])) orgs.push(c[iO]);
-        rows.push([specs.indexOf(c[iS]),orgs.indexOf(c[iO]),di.map(i=>{const v=i<0?'':(c[i]||'').trim().toUpperCase(); return v==='S'?'1':(v==='R'||v==='I')?'0':'-';}).join('')]); }
-      D.icus.uploaded={specs,orgs,rows}; ICU_NAMES.uploaded=`Your ICU (${f.name}, ${rows.length} first isolates)`;
-      fill(); $('icu').value='uploaded'; render();
-    }catch(ex){ err.textContent=ex.message+' Check the column names and try again.'; err.hidden=false; }
-  };
-  rd.readAsText(f);
+  const f=e.target.files[0]; if(!f) return;
+  const rd=new FileReader(); rd.onload=()=>loadCsv(rd.result,'Your ICU: '+f.name,'uploaded'); rd.readAsText(f);
 });
+const SAMPLE_C = "ICU,PATIENT_ID,SPEC_TYPE,ORGANISM,SPEC_DATE,AMC,CRO,TZP,CSL,ETP,IPM,MEM,AMK,COL,PMB,VAN,TEC,LNZ,OXA,AMP\nicu_C,icu_C-00001,Blood,Escherichia coli,2025-12-29,R,R,R,R,R,R,R,S,S,S,,,,,R\nicu_C,icu_C-00002,Blood,Escherichia coli,2025-05-28,R,R,R,R,S,S,S,S,S,S,,,,,R\nicu_C,icu_C-00003,Blood,Escherichia coli,2025-01-27,S,S,R,S,S,S,S,S,S,S,,,,,R\nicu_C,icu_C-00004,Blood,Escherichia coli,2025-06-02,R,R,S,S,S,S,S,S,S,S,,,,,R\nicu_C,icu_C-00005,Blood,Escherichia coli,2025-07-26,R,R,R,R,R,R,R,R,S,S,,,,,R\nicu_C,icu_C-00006,Blood,Escherichia coli,2025-06-15,R,R,R,R,R,R,R,S,S,S,,,,,R\nicu_C,icu_C-00007,Blood,Escherichia coli,2025-01-02,S,S,S,S,S,S,S,S,S,S,,,,,R\nicu_C,icu_C-00008,Blood,Escherichia coli,2025-11-28,S,S,S,S,S,S,S,R,S,S,,,,,R\nicu_C,icu_C-00009,Blood,Escherichia coli,2025-12-13,S,S,S,S,S,S,S,S,S,S,,,,,R\nicu_C,icu_C-00010,Blood,Escherichia coli,2025-06-10,R,R,S,S,S,S,S,S,S,S,,,,,R\nicu_C,icu_C-00011,Blood,Klebsiella pneumoniae,2025-11-21,S,S,S,S,S,S,S,S,S,S,,,,,R\nicu_C,icu_C-00012,Blood,Klebsiella pneumoniae,2025-01-03,R,R,R,R,R,R,R,R,S,S,,,,,R\nicu_C,icu_C-00013,Blood,Klebsiella pneumoniae,2025-05-16,S,S,S,S,S,S,S,S,S,S,,,,,R\nicu_C,icu_C-00014,Blood,Klebsiella pneumoniae,2025-03-18,S,S,S,S,S,S,S,S,S,S,,,,,R\nicu_C,icu_C-00015,Blood,Klebsiella pneumoniae,2025-02-14,R,R,S,S,S,S,S,S,S,S,,,,,R\nicu_C,icu_C-00016,Blood,Klebsiella pneumoniae,2025-02-02,S,S,S,S,S,S,S,R,S,S,,,,,R\nicu_C,icu_C-00017,Blood,Klebsiella pneumoniae,2025-09-04,R,R,R,R,R,R,R,S,S,S,,,,,R\nicu_C,icu_C-00018,Blood,Klebsiella pneumoniae,2025-08-11,S,S,S,S,S,S,S,R,S,S,,,,,R\nicu_C,icu_C-00019,Blood,Klebsiella pneumoniae,2025-01-13,S,S,S,S,S,S,S,S,S,S,,,,,R\nicu_C,icu_C-00020,Blood,Klebsiella pneumoniae,2025-07-07,R,R,S,S,S,S,S,S,S,S,,,,,R\nicu_C,icu_C-00021,Blood,Klebsiella pneumoniae,2025-01-30,S,S,S,S,S,S,S,S,S,S,,,,,R\nicu_C,icu_C-00022,Blood,Acinetobacter baumannii,2025-02-11,R,R,R,R,R,R,R,S,S,S,,,,,R\nicu_C,icu_C-00023,Blood,Acinetobacter baumannii,2025-09-23,R,R,S,S,R,S,S,S,S,S,,,,,R\nicu_C,icu_C-00024,Blood,Acinetobacter baumannii,2025-10-27,R,R,S,S,R,S,S,R,S,S,,,,,R\nicu_C,icu_C-00025,Blood,Acinetobacter baumannii,2025-05-03,R,R,S,S,R,S,S,S,S,S,,,,,R\nicu_C,icu_C-00026,Blood,Pseudomonas aeruginosa,2025-11-29,R,R,S,S,R,S,S,S,S,S,,,,,R\nicu_C,icu_C-00027,Blood,Pseudomonas aeruginosa,2025-02-09,R,R,R,R,R,R,R,S,S,S,,,,,R\nicu_C,icu_C-00028,Blood,Pseudomonas aeruginosa,2025-08-25,R,R,S,S,R,S,S,S,S,S,,,,,R\nicu_C,icu_C-00029,Blood,Pseudomonas aeruginosa,2025-08-08,R,R,S,S,R,S,S,S,S,S,,,,,R\nicu_C,icu_C-00030,Blood,Staphylococcus aureus,2025-05-31,S,S,S,S,S,S,S,,,,S,S,S,S,\nicu_C,icu_C-00031,Blood,Staphylococcus aureus,2025-10-30,S,S,S,S,S,S,S,,,,S,S,S,S,\nicu_C,icu_C-00031,Blood,Staphylococcus aureus,2025-11-02,R,R,R,R,R,R,R,,,,S,S,S,R,\nicu_C,icu_C-00032,Blood,Staphylococcus aureus,2025-07-07,S,S,S,S,S,S,S,,,,S,S,S,S,\nicu_C,icu_C-00033,Blood,Staphylococcus aureus,2025-10-20,S,S,S,S,S,S,S,,,,S,S,S,S,\nicu_C,icu_C-00034,Blood,Staphylococcus aureus,2025-01-02,S,S,S,S,S,S,S,,,,S,S,S,S,\nicu_C,icu_C-00035,Blood,Staphylococcus aureus,2025-07-16,R,R,R,R,R,R,R,,,,S,S,S,R,\nicu_C,icu_C-00036,Blood,Staphylococcus aureus,2025-09-18,R,R,R,R,R,R,R,,,,S,S,S,R,\nicu_C,icu_C-00036,Blood,Staphylococcus aureus,2025-09-21,S,S,S,S,S,S,S,,,,S,S,S,S,\nicu_C,icu_C-00037,Blood,Enterococcus spp.,2025-03-31,S,R,S,R,R,S,R,,,,S,S,S,,S\nicu_C,icu_C-00038,Blood,Enterococcus spp.,2025-11-15,R,R,R,R,R,R,R,,,,S,S,S,,R\nicu_C,icu_C-00039,Blood,Enterococcus spp.,2025-12-01,S,R,S,R,R,S,R,,,,S,S,S,,S\nicu_C,icu_C-00039,Blood,Enterococcus spp.,2025-12-04,S,R,S,R,R,S,R,,,,S,S,S,,S\nicu_C,icu_C-00040,Blood,Enterococcus spp.,2025-10-15,S,R,S,R,R,S,R,,,,S,S,S,,S\nicu_C,icu_C-00041,Blood,Salmonella Typhi,2025-04-01,S,S,S,S,S,S,S,,,,,,,,\nicu_C,icu_C-00042,Blood,Salmonella Typhi,2025-09-19,S,S,S,S,S,S,S,,,,,,,,\nicu_C,icu_C-00043,Blood,Salmonella Typhi,2025-04-07,S,S,S,S,S,S,S,,,,,,,,\nicu_C,icu_C-00044,Resp-CAP,Streptococcus pneumoniae,2025-11-02,S,S,S,S,S,S,S,,,,S,S,S,,\nicu_C,icu_C-00044,Resp-CAP,Streptococcus pneumoniae,2025-11-05,S,S,S,S,S,S,S,,,,S,S,S,,\nicu_C,icu_C-00045,Resp-CAP,Streptococcus pneumoniae,2025-09-23,S,S,S,S,S,S,S,,,,S,S,S,,\nicu_C,icu_C-00046,Resp-CAP,Streptococcus pneumoniae,2025-10-14,S,S,S,S,S,S,S,,,,S,S,S,,\nicu_C,icu_C-00046,Resp-CAP,Streptococcus pneumoniae,2025-10-17,S,S,S,S,R,S,S,,,,S,S,S,,\nicu_C,icu_C-00047,Resp-CAP,Streptococcus pneumoniae,2025-10-26,S,S,S,S,S,S,S,,,,S,S,S,,\nicu_C,icu_C-00048,Resp-CAP,Streptococcus pneumoniae,2025-11-29,S,S,S,S,S,S,S,,,,S,S,S,,\nicu_C,icu_C-00049,Resp-CAP,Haemophilus influenzae,2025-06-11,S,S,S,S,S,S,S,,,,,,,,\nicu_C,icu_C-00050,Resp-CAP,Haemophilus influenzae,2025-02-17,S,S,S,S,S,S,S,,,,,,,,\nicu_C,icu_C-00051,Resp-CAP,Haemophilus influenzae,2025-05-22,S,S,S,S,S,S,S,,,,,,,,\nicu_C,icu_C-00052,Resp-CAP,Klebsiella pneumoniae,2025-05-28,R,S,S,R,S,S,S,R,S,S,,,,,R\nicu_C,icu_C-00053,Resp-CAP,Klebsiella pneumoniae,2025-08-01,S,S,S,S,S,S,S,S,S,S,,,,,R\nicu_C,icu_C-00054,Resp-CAP,Klebsiella pneumoniae,2025-07-24,R,R,R,R,R,R,R,R,S,S,,,,,R\nicu_C,icu_C-00054,Resp-CAP,Klebsiella pneumoniae,2025-07-27,S,S,S,S,S,S,S,S,S,S,,,,,R\nicu_C,icu_C-00055,Resp-CAP,Staphylococcus aureus,2025-09-29,S,S,S,S,S,S,S,,,,S,S,S,S,\nicu_C,icu_C-00055,Resp-CAP,Staphylococcus aureus,2025-10-02,S,S,S,S,S,S,S,,,,S,S,S,S,\nicu_C,icu_C-00056,Resp-CAP,Staphylococcus aureus,2025-08-23,S,S,S,S,S,S,S,,,,S,S,S,S,\nicu_C,icu_C-00057,Resp-CAP,Pseudomonas aeruginosa,2025-09-18,R,R,R,S,R,R,R,R,S,S,,,,,R\nicu_C,icu_C-00058,Resp-VAP,Klebsiella pneumoniae,2025-01-01,R,S,S,S,S,S,S,S,S,S,,,,,R\nicu_C,icu_C-00059,Resp-VAP,Klebsiella pneumoniae,2025-02-13,R,S,S,S,S,S,S,R,S,S,,,,,R\nicu_C,icu_C-00060,Resp-VAP,Klebsiella pneumoniae,2025-06-01,R,R,R,R,R,R,R,R,S,S,,,,,R\nicu_C,icu_C-00061,Resp-VAP,Klebsiella pneumoniae,2025-05-01,R,R,R,R,R,R,R,S,S,S,,,,,R\nicu_C,icu_C-00062,Resp-VAP,Klebsiella pneumoniae,2025-12-02,R,R,R,R,R,R,R,R,S,S,,,,,R\nicu_C,icu_C-00063,Resp-VAP,Klebsiella pneumoniae,2025-04-17,R,R,R,R,R,R,R,S,S,S,,,,,R\nicu_C,icu_C-00064,Resp-VAP,Klebsiella pneumoniae,2025-02-26,S,S,S,S,S,S,S,S,S,S,,,,,R\nicu_C,icu_C-00065,Resp-VAP,Klebsiella pneumoniae,2025-10-14,S,S,S,S,S,S,S,S,S,S,,,,,R\nicu_C,icu_C-00066,Resp-VAP,Klebsiella pneumoniae,2025-08-30,R,R,R,R,R,R,R,S,S,S,,,,,R\nicu_C,icu_C-00067,Resp-VAP,Klebsiella pneumoniae,2025-01-20,R,R,R,R,R,R,R,R,S,S,,,,,R\nicu_C,icu_C-00068,Resp-VAP,Klebsiella pneumoniae,2025-07-01,S,S,S,S,S,S,S,S,S,S,,,,,R\nicu_C,icu_C-00069,Resp-VAP,Acinetobacter baumannii,2025-04-08,R,R,S,S,R,S,S,R,S,S,,,,,R\nicu_C,icu_C-00070,Resp-VAP,Acinetobacter baumannii,2025-10-22,R,R,S,S,R,S,S,R,S,S,,,,,R\nicu_C,icu_C-00071,Resp-VAP,Acinetobacter baumannii,2025-12-30,R,R,R,R,R,R,R,S,S,S,,,,,R\nicu_C,icu_C-00072,Resp-VAP,Acinetobacter baumannii,2025-08-30,R,R,S,S,R,S,S,R,S,S,,,,,R\nicu_C,icu_C-00073,Resp-VAP,Acinetobacter baumannii,2025-09-03,R,R,R,S,R,R,R,R,S,S,,,,,R\nicu_C,icu_C-00074,Resp-VAP,Acinetobacter baumannii,2025-06-13,R,R,S,S,R,S,S,R,S,S,,,,,R\nicu_C,icu_C-00075,Resp-VAP,Acinetobacter baumannii,2025-08-26,R,R,R,S,R,S,S,S,S,S,,,,,R\nicu_C,icu_C-00076,Resp-VAP,Acinetobacter baumannii,2025-04-24,R,R,R,S,R,S,S,R,S,S,,,,,R\nicu_C,icu_C-00077,Resp-VAP,Acinetobacter baumannii,2025-09-29,R,R,R,R,R,R,R,S,S,S,,,,,R\nicu_C,icu_C-00078,Resp-VAP,Pseudomonas aeruginosa,2025-04-25,R,R,S,S,R,S,S,S,S,S,,,,,R\nicu_C,icu_C-00079,Resp-VAP,Pseudomonas aeruginosa,2025-09-18,R,R,S,S,R,S,S,S,S,S,,,,,R\nicu_C,icu_C-00079,Resp-VAP,Pseudomonas aeruginosa,2025-09-21,R,R,S,S,R,S,S,S,S,S,,,,,R\nicu_C,icu_C-00080,Resp-VAP,Pseudomonas aeruginosa,2025-07-04,R,R,S,S,R,S,S,S,S,S,,,,,R\nicu_C,icu_C-00081,Resp-VAP,Pseudomonas aeruginosa,2025-06-24,R,R,R,S,R,S,S,S,S,S,,,,,R\nicu_C,icu_C-00082,Resp-VAP,Pseudomonas aeruginosa,2025-10-29,R,R,S,S,R,S,S,S,S,S,,,,,R\nicu_C,icu_C-00083,Resp-VAP,Pseudomonas aeruginosa,2025-07-31,R,R,R,R,R,R,R,R,S,S,,,,,R\nicu_C,icu_C-00084,Resp-VAP,Pseudomonas aeruginosa,2025-04-16,R,R,S,R,R,S,S,S,S,S,,,,,R\nicu_C,icu_C-00085,Resp-VAP,Staphylococcus aureus,2025-05-29,S,S,S,S,S,S,S,,,,S,S,S,S,\nicu_C,icu_C-00086,Resp-VAP,Staphylococcus aureus,2025-02-09,S,S,S,S,S,S,S,,,,S,S,S,S,\nicu_C,icu_C-00087,Resp-VAP,Staphylococcus aureus,2025-05-10,R,R,R,R,R,R,R,,,,S,S,S,R,\nicu_C,icu_C-00088,Resp-VAP,Escherichia coli,2025-09-23,R,R,R,R,R,R,R,R,S,S,,,,,R\nicu_C,icu_C-00089,Resp-VAP,Escherichia coli,2025-07-08,S,S,S,S,S,S,S,S,S,S,,,,,R\nicu_C,icu_C-00090,Peritoneal,Escherichia coli,2025-02-05,S,S,S,S,S,S,S,S,S,S,,,,,R\nicu_C,icu_C-00091,Peritoneal,Escherichia coli,2025-01-21,S,S,S,S,S,S,S,S,S,S,,,,,R\nicu_C,icu_C-00092,Peritoneal,Escherichia coli,2025-02-02,S,S,S,S,S,S,S,S,S,S,,,,,R\nicu_C,icu_C-00093,Peritoneal,Escherichia coli,2025-06-05,S,S,S,S,S,S,S,S,S,S,,,,,R\nicu_C,icu_C-00094,Peritoneal,Escherichia coli,2025-05-11,R,R,R,S,S,S,S,R,S,S,,,,,R\nicu_C,icu_C-00094,Peritoneal,Escherichia coli,2025-05-14,R,R,R,R,R,R,R,S,S,S,,,,,R\nicu_C,icu_C-00095,Peritoneal,Escherichia coli,2025-07-15,S,S,S,S,S,S,S,S,S,S,,,,,R\nicu_C,icu_C-00096,Peritoneal,Escherichia coli,2025-04-03,R,R,S,S,S,S,S,S,S,S,,,,,R\nicu_C,icu_C-00097,Peritoneal,Escherichia coli,2025-06-17,R,R,S,S,S,S,S,S,S,S,,,,,R\nicu_C,icu_C-00098,Peritoneal,Klebsiella pneumoniae,2025-01-10,R,R,R,R,R,R,R,S,S,S,,,,,R\nicu_C,icu_C-00099,Peritoneal,Klebsiella pneumoniae,2025-09-12,S,S,S,S,S,S,S,R,S,S,,,,,R\nicu_C,icu_C-00100,Peritoneal,Klebsiella pneumoniae,2025-01-03,S,S,S,S,S,S,S,S,S,S,,,,,R\nicu_C,icu_C-00101,Peritoneal,Klebsiella pneumoniae,2025-05-09,S,S,S,S,S,S,S,S,S,S,,,,,R\nicu_C,icu_C-00102,Peritoneal,Klebsiella pneumoniae,2025-12-25,R,R,R,R,S,S,S,S,S,S,,,,,R\nicu_C,icu_C-00103,Peritoneal,Enterococcus spp.,2025-09-27,R,R,R,R,R,R,R,,,,S,S,S,,R\nicu_C,icu_C-00104,Peritoneal,Enterococcus spp.,2025-05-07,S,R,S,R,R,S,R,,,,S,S,S,,S\nicu_C,icu_C-00105,Peritoneal,Enterococcus spp.,2025-01-14,R,R,R,R,R,R,R,,,,S,S,S,,R\nicu_C,icu_C-00106,Peritoneal,Pseudomonas aeruginosa,2025-05-06,R,R,S,S,R,S,S,S,S,S,,,,,R\nicu_C,icu_C-00107,Peritoneal,Pseudomonas aeruginosa,2025-05-17,R,R,S,S,R,S,S,S,S,S,,,,,R\nicu_C,icu_C-00108,Peritoneal,Acinetobacter baumannii,2025-09-20,R,R,R,S,R,R,R,S,S,S,,,,,R\n";
+$('loadC').addEventListener('click',()=>loadCsv(SAMPLE_C,'ICU C sample, district hospital','sample_c'));
 
 $('copy').addEventListener('click',()=>{
   const t=$('audit').textContent;
