@@ -1,0 +1,12 @@
+Test,Result
+Tier boundary: 10.0% -> SAFE,PASS
+Tier boundary: 10.1% -> CAUTION,PASS
+Tier boundary: 30.0% -> CAUTION,PASS
+Tier boundary: 30.1% -> NO RELIABLE OPTION,PASS
+First-isolate rule removes repeat isolates,PASS
+Restricted drug carries ID-approval flag,PASS
+Escalates when every regimen is >30% resistant,PASS
+AKI flag removes colistin / polymyxin / amikacin,PASS
+Deterministic: same input -> same audit hash,PASS
+Different ICU data -> different recommendations (generalises),PASS
+Stewardship ranking prefers Watch over Reserve when both are SAFE,PASS

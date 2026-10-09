@@ -1,0 +1,11 @@
+ICU,Syndrome,Decision,Regimen,Tier,PctResistant,Audit
+icu_A,Acute undifferentiated fever (severe),ESCALATE,Escalate to ID / Microbiology,-,,6f4b4a95ce9e973c
+icu_A,Sepsis / septic shock (unclear focus),RECOMMEND,Meropenem + Colistin + Vancomycin,SAFE,2.2,280786abfbefe9d3
+icu_A,Severe community-acquired pneumonia (ICU),ESCALATE,Escalate to ID / Microbiology,-,,6490580be1ef8cac
+icu_A,Hospital-acquired / ventilator-associated pneumonia,RECOMMEND,Meropenem + Colistin,SAFE,4.9,d4bf08c66be49e92
+icu_A,Intra-abdominal infection (secondary peritonitis),ESCALATE,Escalate to ID / Microbiology,-,,2e6be5bf40141e4f
+icu_B,Acute undifferentiated fever (severe),RECOMMEND,Piperacillin-tazobactam + Doxycycline,USE WITH CAUTION,18.8,a211444fb34e43dd
+icu_B,Sepsis / septic shock (unclear focus),RECOMMEND,Cefoperazone-sulbactam + Amikacin + Teicoplanin,SAFE,2.1,8c6a681ca7ef84cd
+icu_B,Severe community-acquired pneumonia (ICU),RECOMMEND,Piperacillin-tazobactam + Azithromycin,SAFE,8.2,7f498a21f0d1c203
+icu_B,Hospital-acquired / ventilator-associated pneumonia,RECOMMEND,Meropenem + Colistin,SAFE,1.8,ca6370b50aec7af5
+icu_B,Intra-abdominal infection (secondary peritonitis),RECOMMEND,Piperacillin-tazobactam,USE WITH CAUTION,20.7,b36cd402a2c67e20

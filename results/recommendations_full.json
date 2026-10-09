@@ -1,0 +1,1132 @@
+{
+  "icu_A | Acute undifferentiated fever (severe)": {
+    "syndrome": "Acute undifferentiated fever (severe)",
+    "specimen": "Blood",
+    "decision": {
+      "action": "ESCALATE",
+      "message": "No regimen in the guideline is reliably active in this ICU. Do not start a potentially inactive empiric regimen: send cultures and call Microbiology / Infectious Disease now."
+    },
+    "ranked": [
+      {
+        "regimen": "Ceftriaxone + Doxycycline",
+        "drugs": [
+          "CRO",
+          "DOX"
+        ],
+        "line": 1,
+        "status": "CANDIDATE",
+        "pct_resistant": 69.6,
+        "isolates": 365,
+        "per_organism": {
+          "Acinetobacter baumannii": 100.0,
+          "Enterococcus spp.": 100.0,
+          "Escherichia coli": 63.7,
+          "Klebsiella pneumoniae": 72.2,
+          "Pseudomonas aeruginosa": 100.0,
+          "Salmonella Typhi": 4.0,
+          "Staphylococcus aureus": 40.0
+        },
+        "tier": 3,
+        "tier_name": "NO RELIABLE EMPIRIC OPTION",
+        "aware": "Watch",
+        "restriction": "free",
+        "reason": "",
+        "dosing": "Ceftriaxone 2 g IV q24h + Doxycycline 100 mg IV/PO q12h"
+      },
+      {
+        "regimen": "Piperacillin-tazobactam + Doxycycline",
+        "drugs": [
+          "TZP",
+          "DOX"
+        ],
+        "line": 2,
+        "status": "CANDIDATE",
+        "pct_resistant": 50.4,
+        "isolates": 365,
+        "per_organism": {
+          "Acinetobacter baumannii": 92.0,
+          "Enterococcus spp.": 60.0,
+          "Escherichia coli": 33.8,
+          "Klebsiella pneumoniae": 65.6,
+          "Pseudomonas aeruginosa": 31.4,
+          "Salmonella Typhi": 4.0,
+          "Staphylococcus aureus": 40.0
+        },
+        "tier": 3,
+        "tier_name": "NO RELIABLE EMPIRIC OPTION",
+        "aware": "Watch",
+        "restriction": "justify",
+        "reason": "prescriber justification required",
+        "dosing": "Pip-tazo 4.5 g IV q6h + Doxycycline 100 mg q12h"
+      },
+      {
+        "regimen": "Meropenem + Doxycycline",
+        "drugs": [
+          "MEM",
+          "DOX"
+        ],
+        "line": 3,
+        "status": "CANDIDATE",
+        "pct_resistant": 48.5,
+        "isolates": 365,
+        "per_organism": {
+          "Acinetobacter baumannii": 84.0,
+          "Enterococcus spp.": 100.0,
+          "Escherichia coli": 23.8,
+          "Klebsiella pneumoniae": 61.1,
+          "Pseudomonas aeruginosa": 25.7,
+          "Salmonella Typhi": 0.0,
+          "Staphylococcus aureus": 40.0
+        },
+        "tier": 3,
+        "tier_name": "NO RELIABLE EMPIRIC OPTION",
+        "aware": "Watch",
+        "restriction": "id_approval",
+        "reason": "requires Infectious Disease approval",
+        "dosing": "Meropenem 1 g IV q8h + Doxycycline 100 mg q12h"
+      }
+    ],
+    "excluded": [],
+    "patient_flags": [],
+    "audit_hash": "6f4b4a95ce9e973c"
+  },
+  "icu_A | Sepsis / septic shock (unclear focus)": {
+    "syndrome": "Sepsis / septic shock (unclear focus)",
+    "specimen": "Blood",
+    "decision": {
+      "action": "RECOMMEND",
+      "regimen": "Meropenem + Colistin + Vancomycin",
+      "tier": "SAFE",
+      "message": "Meropenem + Colistin + Vancomycin: 2.2% of local blood isolates resistant (requires Infectious Disease approval)"
+    },
+    "ranked": [
+      {
+        "regimen": "Meropenem + Colistin + Vancomycin",
+        "drugs": [
+          "MEM",
+          "COL",
+          "VAN"
+        ],
+        "line": 3,
+        "status": "CANDIDATE",
+        "pct_resistant": 2.2,
+        "isolates": 365,
+        "per_organism": {
+          "Acinetobacter baumannii": 6.0,
+          "Enterococcus spp.": 6.7,
+          "Escherichia coli": 0.0,
+          "Klebsiella pneumoniae": 3.3,
+          "Pseudomonas aeruginosa": 0.0,
+          "Salmonella Typhi": 0.0,
+          "Staphylococcus aureus": 0.0
+        },
+        "tier": 1,
+        "tier_name": "SAFE",
+        "aware": "Reserve",
+        "restriction": "id_approval",
+        "reason": "requires Infectious Disease approval",
+        "dosing": "Meropenem 1 g q8h + Colistin 9 MU load then 4.5 MU q12h + Vancomycin"
+      },
+      {
+        "regimen": "Meropenem + Polymyxin B + Teicoplanin",
+        "drugs": [
+          "MEM",
+          "PMB",
+          "TEC"
+        ],
+        "line": 3,
+        "status": "CANDIDATE",
+        "pct_resistant": 2.2,
+        "isolates": 365,
+        "per_organism": {
+          "Acinetobacter baumannii": 6.0,
+          "Enterococcus spp.": 6.7,
+          "Escherichia coli": 0.0,
+          "Klebsiella pneumoniae": 3.3,
+          "Pseudomonas aeruginosa": 0.0,
+          "Salmonella Typhi": 0.0,
+          "Staphylococcus aureus": 0.0
+        },
+        "tier": 1,
+        "tier_name": "SAFE",
+        "aware": "Reserve",
+        "restriction": "id_approval",
+        "reason": "requires Infectious Disease approval",
+        "dosing": "Meropenem 1 g q8h + Polymyxin B 15-20 lakh U load then 7.5-10 lakh U q12h + Teicoplanin"
+      },
+      {
+        "regimen": "Cefoperazone-sulbactam + Amikacin + Teicoplanin",
+        "drugs": [
+          "CSL",
+          "AMK",
+          "TEC"
+        ],
+        "line": 2,
+        "status": "CANDIDATE",
+        "pct_resistant": 22.5,
+        "isolates": 365,
+        "per_organism": {
+          "Acinetobacter baumannii": 38.0,
+          "Enterococcus spp.": 6.7,
+          "Escherichia coli": 21.3,
+          "Klebsiella pneumoniae": 43.3,
+          "Pseudomonas aeruginosa": 14.3,
+          "Salmonella Typhi": 0.0,
+          "Staphylococcus aureus": 0.0
+        },
+        "tier": 2,
+        "tier_name": "USE WITH CAUTION",
+        "aware": "Watch",
+        "restriction": "justify",
+        "reason": "prescriber justification required",
+        "dosing": "Cefop-sulb 3 g IV q12h + Amikacin 15 mg/kg q24h + Teicoplanin 400 mg q12h x3 then daily"
+      },
+      {
+        "regimen": "Imipenem + Vancomycin",
+        "drugs": [
+          "IPM",
+          "VAN"
+        ],
+        "line": 1,
+        "status": "CANDIDATE",
+        "pct_resistant": 34.8,
+        "isolates": 365,
+        "per_organism": {
+          "Acinetobacter baumannii": 84.0,
+          "Enterococcus spp.": 6.7,
+          "Escherichia coli": 23.8,
+          "Klebsiella pneumoniae": 61.1,
+          "Pseudomonas aeruginosa": 25.7,
+          "Salmonella Typhi": 0.0,
+          "Staphylococcus aureus": 0.0
+        },
+        "tier": 3,
+        "tier_name": "NO RELIABLE EMPIRIC OPTION",
+        "aware": "Watch",
+        "restriction": "id_approval",
+        "reason": "requires Infectious Disease approval",
+        "dosing": "Imipenem 1 g IV q8h + Vancomycin 15 mg/kg IV q8-12h"
+      },
+      {
+        "regimen": "Meropenem + Vancomycin",
+        "drugs": [
+          "MEM",
+          "VAN"
+        ],
+        "line": 2,
+        "status": "CANDIDATE",
+        "pct_resistant": 34.8,
+        "isolates": 365,
+        "per_organism": {
+          "Acinetobacter baumannii": 84.0,
+          "Enterococcus spp.": 6.7,
+          "Escherichia coli": 23.8,
+          "Klebsiella pneumoniae": 61.1,
+          "Pseudomonas aeruginosa": 25.7,
+          "Salmonella Typhi": 0.0,
+          "Staphylococcus aureus": 0.0
+        },
+        "tier": 3,
+        "tier_name": "NO RELIABLE EMPIRIC OPTION",
+        "aware": "Watch",
+        "restriction": "id_approval",
+        "reason": "requires Infectious Disease approval",
+        "dosing": "Meropenem 1 g IV q8h + Vancomycin 15 mg/kg IV q8-12h"
+      }
+    ],
+    "excluded": [],
+    "patient_flags": [],
+    "audit_hash": "280786abfbefe9d3"
+  },
+  "icu_A | Severe community-acquired pneumonia (ICU)": {
+    "syndrome": "Severe community-acquired pneumonia (ICU)",
+    "specimen": "Resp-CAP",
+    "decision": {
+      "action": "ESCALATE",
+      "message": "No regimen in the guideline is reliably active in this ICU. Do not start a potentially inactive empiric regimen: send cultures and call Microbiology / Infectious Disease now."
+    },
+    "ranked": [
+      {
+        "regimen": "Ceftriaxone + Azithromycin",
+        "drugs": [
+          "CRO",
+          "AZM"
+        ],
+        "line": 1,
+        "status": "CANDIDATE",
+        "pct_resistant": 34.2,
+        "isolates": 120,
+        "per_organism": {
+          "Haemophilus influenzae": 0.0,
+          "Klebsiella pneumoniae": 80.0,
+          "Pseudomonas aeruginosa": 100.0,
+          "Staphylococcus aureus": 55.0,
+          "Streptococcus pneumoniae": 0.0
+        },
+        "tier": 3,
+        "tier_name": "NO RELIABLE EMPIRIC OPTION",
+        "aware": "Watch",
+        "restriction": "free",
+        "reason": "",
+        "dosing": "Ceftriaxone 2 g IV q24h + Azithromycin 500 mg IV q24h"
+      },
+      {
+        "regimen": "Amoxicillin-clavulanate + Azithromycin",
+        "drugs": [
+          "AMC",
+          "AZM"
+        ],
+        "line": 2,
+        "status": "CANDIDATE",
+        "pct_resistant": 40.0,
+        "isolates": 120,
+        "per_organism": {
+          "Haemophilus influenzae": 8.0,
+          "Klebsiella pneumoniae": 84.0,
+          "Pseudomonas aeruginosa": 100.0,
+          "Staphylococcus aureus": 55.0,
+          "Streptococcus pneumoniae": 10.0
+        },
+        "tier": 3,
+        "tier_name": "NO RELIABLE EMPIRIC OPTION",
+        "aware": "Watch",
+        "restriction": "free",
+        "reason": "",
+        "dosing": "Amox-clav 1.2 g IV q8h + Azithromycin 500 mg q24h"
+      },
+      {
+        "regimen": "Piperacillin-tazobactam + Azithromycin",
+        "drugs": [
+          "TZP",
+          "AZM"
+        ],
+        "line": 3,
+        "status": "CANDIDATE",
+        "pct_resistant": 33.3,
+        "isolates": 120,
+        "per_organism": {
+          "Haemophilus influenzae": 4.0,
+          "Klebsiella pneumoniae": 72.0,
+          "Pseudomonas aeruginosa": 60.0,
+          "Staphylococcus aureus": 55.0,
+          "Streptococcus pneumoniae": 10.0
+        },
+        "tier": 3,
+        "tier_name": "NO RELIABLE EMPIRIC OPTION",
+        "aware": "Watch",
+        "restriction": "justify",
+        "reason": "prescriber justification required",
+        "dosing": "Pip-tazo 4.5 g IV q6h + Azithromycin 500 mg q24h"
+      }
+    ],
+    "excluded": [],
+    "patient_flags": [],
+    "audit_hash": "6490580be1ef8cac"
+  },
+  "icu_A | Hospital-acquired / ventilator-associated pneumonia": {
+    "syndrome": "Hospital-acquired / ventilator-associated pneumonia",
+    "specimen": "Resp-VAP",
+    "decision": {
+      "action": "RECOMMEND",
+      "regimen": "Meropenem + Colistin",
+      "tier": "SAFE",
+      "message": "Meropenem + Colistin: 4.9% of local resp-vap isolates resistant (requires Infectious Disease approval)"
+    },
+    "ranked": [
+      {
+        "regimen": "Meropenem + Colistin",
+        "drugs": [
+          "MEM",
+          "COL"
+        ],
+        "line": 3,
+        "status": "CANDIDATE",
+        "pct_resistant": 4.9,
+        "isolates": 305,
+        "per_organism": {
+          "Acinetobacter baumannii": 4.5,
+          "Escherichia coli": 0.0,
+          "Klebsiella pneumoniae": 2.2,
+          "Pseudomonas aeruginosa": 0.0,
+          "Staphylococcus aureus": 32.0
+        },
+        "tier": 1,
+        "tier_name": "SAFE",
+        "aware": "Reserve",
+        "restriction": "id_approval",
+        "reason": "requires Infectious Disease approval",
+        "dosing": "Meropenem 1 g q8h + Colistin 9 MU load then 4.5 MU q12h"
+      },
+      {
+        "regimen": "Meropenem + Colistin + Linezolid",
+        "drugs": [
+          "MEM",
+          "COL",
+          "LNZ"
+        ],
+        "line": 3,
+        "status": "CANDIDATE",
+        "pct_resistant": 2.3,
+        "isolates": 305,
+        "per_organism": {
+          "Acinetobacter baumannii": 4.5,
+          "Escherichia coli": 0.0,
+          "Klebsiella pneumoniae": 2.2,
+          "Pseudomonas aeruginosa": 0.0,
+          "Staphylococcus aureus": 0.0
+        },
+        "tier": 1,
+        "tier_name": "SAFE",
+        "aware": "Reserve",
+        "restriction": "id_approval",
+        "reason": "requires Infectious Disease approval",
+        "dosing": "as above + Linezolid 600 mg IV q12h"
+      },
+      {
+        "regimen": "Cefoperazone-sulbactam",
+        "drugs": [
+          "CSL"
+        ],
+        "line": 1,
+        "status": "CANDIDATE",
+        "pct_resistant": 55.1,
+        "isolates": 305,
+        "per_organism": {
+          "Acinetobacter baumannii": 63.6,
+          "Escherichia coli": 65.0,
+          "Klebsiella pneumoniae": 57.8,
+          "Pseudomonas aeruginosa": 41.7,
+          "Staphylococcus aureus": 32.0
+        },
+        "tier": 3,
+        "tier_name": "NO RELIABLE EMPIRIC OPTION",
+        "aware": "Watch",
+        "restriction": "justify",
+        "reason": "prescriber justification required",
+        "dosing": "Cefop-sulb 3 g IV q12h"
+      },
+      {
+        "regimen": "Piperacillin-tazobactam",
+        "drugs": [
+          "TZP"
+        ],
+        "line": 1,
+        "status": "CANDIDATE",
+        "pct_resistant": 65.6,
+        "isolates": 305,
+        "per_organism": {
+          "Acinetobacter baumannii": 91.8,
+          "Escherichia coli": 65.0,
+          "Klebsiella pneumoniae": 64.4,
+          "Pseudomonas aeruginosa": 33.3,
+          "Staphylococcus aureus": 32.0
+        },
+        "tier": 3,
+        "tier_name": "NO RELIABLE EMPIRIC OPTION",
+        "aware": "Watch",
+        "restriction": "justify",
+        "reason": "prescriber justification required",
+        "dosing": "Pip-tazo 4.5 g IV q6h (extended infusion)"
+      },
+      {
+        "regimen": "Meropenem",
+        "drugs": [
+          "MEM"
+        ],
+        "line": 2,
+        "status": "CANDIDATE",
+        "pct_resistant": 58.0,
+        "isolates": 305,
+        "per_organism": {
+          "Acinetobacter baumannii": 87.3,
+          "Escherichia coli": 45.0,
+          "Klebsiella pneumoniae": 51.1,
+          "Pseudomonas aeruginosa": 30.0,
+          "Staphylococcus aureus": 32.0
+        },
+        "tier": 3,
+        "tier_name": "NO RELIABLE EMPIRIC OPTION",
+        "aware": "Watch",
+        "restriction": "id_approval",
+        "reason": "requires Infectious Disease approval",
+        "dosing": "Meropenem 1 g IV q8h (extended infusion)"
+      }
+    ],
+    "excluded": [],
+    "patient_flags": [],
+    "audit_hash": "d4bf08c66be49e92"
+  },
+  "icu_A | Intra-abdominal infection (secondary peritonitis)": {
+    "syndrome": "Intra-abdominal infection (secondary peritonitis)",
+    "specimen": "Peritoneal",
+    "decision": {
+      "action": "ESCALATE",
+      "message": "No regimen in the guideline is reliably active in this ICU. Do not start a potentially inactive empiric regimen: send cultures and call Microbiology / Infectious Disease now."
+    },
+    "ranked": [
+      {
+        "regimen": "Piperacillin-tazobactam",
+        "drugs": [
+          "TZP"
+        ],
+        "line": 1,
+        "status": "CANDIDATE",
+        "pct_resistant": 52.1,
+        "isolates": 165,
+        "per_organism": {
+          "Acinetobacter baumannii": 90.0,
+          "Enterococcus spp.": 52.0,
+          "Escherichia coli": 41.4,
+          "Klebsiella pneumoniae": 64.4,
+          "Pseudomonas aeruginosa": 40.0
+        },
+        "tier": 3,
+        "tier_name": "NO RELIABLE EMPIRIC OPTION",
+        "aware": "Watch",
+        "restriction": "justify",
+        "reason": "prescriber justification required",
+        "dosing": "Pip-tazo 4.5 g IV q6h"
+      },
+      {
+        "regimen": "Ertapenem",
+        "drugs": [
+          "ETP"
+        ],
+        "line": 2,
+        "status": "CANDIDATE",
+        "pct_resistant": 54.5,
+        "isolates": 165,
+        "per_organism": {
+          "Acinetobacter baumannii": 100.0,
+          "Enterococcus spp.": 100.0,
+          "Escherichia coli": 21.4,
+          "Klebsiella pneumoniae": 55.6,
+          "Pseudomonas aeruginosa": 100.0
+        },
+        "tier": 3,
+        "tier_name": "NO RELIABLE EMPIRIC OPTION",
+        "aware": "Watch",
+        "restriction": "justify",
+        "reason": "prescriber justification required",
+        "dosing": "Ertapenem 1 g IV q24h"
+      },
+      {
+        "regimen": "Cefoperazone-sulbactam",
+        "drugs": [
+          "CSL"
+        ],
+        "line": 1,
+        "status": "CANDIDATE",
+        "pct_resistant": 59.4,
+        "isolates": 165,
+        "per_organism": {
+          "Acinetobacter baumannii": 70.0,
+          "Enterococcus spp.": 100.0,
+          "Escherichia coli": 44.3,
+          "Klebsiella pneumoniae": 68.9,
+          "Pseudomonas aeruginosa": 26.7
+        },
+        "tier": 3,
+        "tier_name": "NO RELIABLE EMPIRIC OPTION",
+        "aware": "Watch",
+        "restriction": "justify",
+        "reason": "prescriber justification required",
+        "dosing": "Cefop-sulb 3 g IV q12h"
+      },
+      {
+        "regimen": "Meropenem",
+        "drugs": [
+          "MEM"
+        ],
+        "line": 2,
+        "status": "CANDIDATE",
+        "pct_resistant": 46.1,
+        "isolates": 165,
+        "per_organism": {
+          "Acinetobacter baumannii": 80.0,
+          "Enterococcus spp.": 100.0,
+          "Escherichia coli": 21.4,
+          "Klebsiella pneumoniae": 55.6,
+          "Pseudomonas aeruginosa": 20.0
+        },
+        "tier": 3,
+        "tier_name": "NO RELIABLE EMPIRIC OPTION",
+        "aware": "Watch",
+        "restriction": "id_approval",
+        "reason": "requires Infectious Disease approval",
+        "dosing": "Meropenem 1 g IV q8h"
+      }
+    ],
+    "excluded": [],
+    "patient_flags": [],
+    "audit_hash": "2e6be5bf40141e4f"
+  },
+  "icu_B | Acute undifferentiated fever (severe)": {
+    "syndrome": "Acute undifferentiated fever (severe)",
+    "specimen": "Blood",
+    "decision": {
+      "action": "RECOMMEND",
+      "regimen": "Piperacillin-tazobactam + Doxycycline",
+      "tier": "USE WITH CAUTION",
+      "message": "Piperacillin-tazobactam + Doxycycline: 18.8% of local blood isolates resistant (prescriber justification required)"
+    },
+    "ranked": [
+      {
+        "regimen": "Piperacillin-tazobactam + Doxycycline",
+        "drugs": [
+          "TZP",
+          "DOX"
+        ],
+        "line": 2,
+        "status": "CANDIDATE",
+        "pct_resistant": 18.8,
+        "isolates": 234,
+        "per_organism": {
+          "Acinetobacter baumannii": 57.1,
+          "Enterococcus spp.": 28.6,
+          "Escherichia coli": 7.1,
+          "Klebsiella pneumoniae": 20.6,
+          "Pseudomonas aeruginosa": 12.5,
+          "Salmonella Typhi": 5.6,
+          "Staphylococcus aureus": 23.7
+        },
+        "tier": 2,
+        "tier_name": "USE WITH CAUTION",
+        "aware": "Watch",
+        "restriction": "justify",
+        "reason": "prescriber justification required",
+        "dosing": "Pip-tazo 4.5 g IV q6h + Doxycycline 100 mg q12h"
+      },
+      {
+        "regimen": "Meropenem + Doxycycline",
+        "drugs": [
+          "MEM",
+          "DOX"
+        ],
+        "line": 3,
+        "status": "CANDIDATE",
+        "pct_resistant": 23.5,
+        "isolates": 234,
+        "per_organism": {
+          "Acinetobacter baumannii": 42.9,
+          "Enterococcus spp.": 100.0,
+          "Escherichia coli": 5.4,
+          "Klebsiella pneumoniae": 20.6,
+          "Pseudomonas aeruginosa": 12.5,
+          "Salmonella Typhi": 0.0,
+          "Staphylococcus aureus": 23.7
+        },
+        "tier": 2,
+        "tier_name": "USE WITH CAUTION",
+        "aware": "Watch",
+        "restriction": "id_approval",
+        "reason": "requires Infectious Disease approval",
+        "dosing": "Meropenem 1 g IV q8h + Doxycycline 100 mg q12h"
+      },
+      {
+        "regimen": "Ceftriaxone + Doxycycline",
+        "drugs": [
+          "CRO",
+          "DOX"
+        ],
+        "line": 1,
+        "status": "CANDIDATE",
+        "pct_resistant": 42.7,
+        "isolates": 234,
+        "per_organism": {
+          "Acinetobacter baumannii": 100.0,
+          "Enterococcus spp.": 100.0,
+          "Escherichia coli": 23.2,
+          "Klebsiella pneumoniae": 28.6,
+          "Pseudomonas aeruginosa": 100.0,
+          "Salmonella Typhi": 5.6,
+          "Staphylococcus aureus": 23.7
+        },
+        "tier": 3,
+        "tier_name": "NO RELIABLE EMPIRIC OPTION",
+        "aware": "Watch",
+        "restriction": "free",
+        "reason": "",
+        "dosing": "Ceftriaxone 2 g IV q24h + Doxycycline 100 mg IV/PO q12h"
+      }
+    ],
+    "excluded": [],
+    "patient_flags": [],
+    "audit_hash": "a211444fb34e43dd"
+  },
+  "icu_B | Sepsis / septic shock (unclear focus)": {
+    "syndrome": "Sepsis / septic shock (unclear focus)",
+    "specimen": "Blood",
+    "decision": {
+      "action": "RECOMMEND",
+      "regimen": "Cefoperazone-sulbactam + Amikacin + Teicoplanin",
+      "tier": "SAFE",
+      "message": "Cefoperazone-sulbactam + Amikacin + Teicoplanin: 2.1% of local blood isolates resistant (prescriber justification required)"
+    },
+    "ranked": [
+      {
+        "regimen": "Cefoperazone-sulbactam + Amikacin + Teicoplanin",
+        "drugs": [
+          "CSL",
+          "AMK",
+          "TEC"
+        ],
+        "line": 2,
+        "status": "CANDIDATE",
+        "pct_resistant": 2.1,
+        "isolates": 234,
+        "per_organism": {
+          "Acinetobacter baumannii": 0.0,
+          "Enterococcus spp.": 4.8,
+          "Escherichia coli": 0.0,
+          "Klebsiella pneumoniae": 6.3,
+          "Pseudomonas aeruginosa": 0.0,
+          "Salmonella Typhi": 0.0,
+          "Staphylococcus aureus": 0.0
+        },
+        "tier": 1,
+        "tier_name": "SAFE",
+        "aware": "Watch",
+        "restriction": "justify",
+        "reason": "prescriber justification required",
+        "dosing": "Cefop-sulb 3 g IV q12h + Amikacin 15 mg/kg q24h + Teicoplanin 400 mg q12h x3 then daily"
+      },
+      {
+        "regimen": "Meropenem + Colistin + Vancomycin",
+        "drugs": [
+          "MEM",
+          "COL",
+          "VAN"
+        ],
+        "line": 3,
+        "status": "CANDIDATE",
+        "pct_resistant": 0.4,
+        "isolates": 234,
+        "per_organism": {
+          "Acinetobacter baumannii": 0.0,
+          "Enterococcus spp.": 4.8,
+          "Escherichia coli": 0.0,
+          "Klebsiella pneumoniae": 0.0,
+          "Pseudomonas aeruginosa": 0.0,
+          "Salmonella Typhi": 0.0,
+          "Staphylococcus aureus": 0.0
+        },
+        "tier": 1,
+        "tier_name": "SAFE",
+        "aware": "Reserve",
+        "restriction": "id_approval",
+        "reason": "requires Infectious Disease approval",
+        "dosing": "Meropenem 1 g q8h + Colistin 9 MU load then 4.5 MU q12h + Vancomycin"
+      },
+      {
+        "regimen": "Meropenem + Polymyxin B + Teicoplanin",
+        "drugs": [
+          "MEM",
+          "PMB",
+          "TEC"
+        ],
+        "line": 3,
+        "status": "CANDIDATE",
+        "pct_resistant": 0.4,
+        "isolates": 234,
+        "per_organism": {
+          "Acinetobacter baumannii": 0.0,
+          "Enterococcus spp.": 4.8,
+          "Escherichia coli": 0.0,
+          "Klebsiella pneumoniae": 0.0,
+          "Pseudomonas aeruginosa": 0.0,
+          "Salmonella Typhi": 0.0,
+          "Staphylococcus aureus": 0.0
+        },
+        "tier": 1,
+        "tier_name": "SAFE",
+        "aware": "Reserve",
+        "restriction": "id_approval",
+        "reason": "requires Infectious Disease approval",
+        "dosing": "Meropenem 1 g q8h + Polymyxin B 15-20 lakh U load then 7.5-10 lakh U q12h + Teicoplanin"
+      },
+      {
+        "regimen": "Imipenem + Vancomycin",
+        "drugs": [
+          "IPM",
+          "VAN"
+        ],
+        "line": 1,
+        "status": "CANDIDATE",
+        "pct_resistant": 10.7,
+        "isolates": 234,
+        "per_organism": {
+          "Acinetobacter baumannii": 42.9,
+          "Enterococcus spp.": 0.0,
+          "Escherichia coli": 5.4,
+          "Klebsiella pneumoniae": 20.6,
+          "Pseudomonas aeruginosa": 12.5,
+          "Salmonella Typhi": 0.0,
+          "Staphylococcus aureus": 0.0
+        },
+        "tier": 2,
+        "tier_name": "USE WITH CAUTION",
+        "aware": "Watch",
+        "restriction": "id_approval",
+        "reason": "requires Infectious Disease approval",
+        "dosing": "Imipenem 1 g IV q8h + Vancomycin 15 mg/kg IV q8-12h"
+      },
+      {
+        "regimen": "Meropenem + Vancomycin",
+        "drugs": [
+          "MEM",
+          "VAN"
+        ],
+        "line": 2,
+        "status": "CANDIDATE",
+        "pct_resistant": 11.1,
+        "isolates": 234,
+        "per_organism": {
+          "Acinetobacter baumannii": 42.9,
+          "Enterococcus spp.": 4.8,
+          "Escherichia coli": 5.4,
+          "Klebsiella pneumoniae": 20.6,
+          "Pseudomonas aeruginosa": 12.5,
+          "Salmonella Typhi": 0.0,
+          "Staphylococcus aureus": 0.0
+        },
+        "tier": 2,
+        "tier_name": "USE WITH CAUTION",
+        "aware": "Watch",
+        "restriction": "id_approval",
+        "reason": "requires Infectious Disease approval",
+        "dosing": "Meropenem 1 g IV q8h + Vancomycin 15 mg/kg IV q8-12h"
+      }
+    ],
+    "excluded": [],
+    "patient_flags": [],
+    "audit_hash": "8c6a681ca7ef84cd"
+  },
+  "icu_B | Severe community-acquired pneumonia (ICU)": {
+    "syndrome": "Severe community-acquired pneumonia (ICU)",
+    "specimen": "Resp-CAP",
+    "decision": {
+      "action": "RECOMMEND",
+      "regimen": "Piperacillin-tazobactam + Azithromycin",
+      "tier": "SAFE",
+      "message": "Piperacillin-tazobactam + Azithromycin: 8.2% of local resp-cap isolates resistant (prescriber justification required)"
+    },
+    "ranked": [
+      {
+        "regimen": "Piperacillin-tazobactam + Azithromycin",
+        "drugs": [
+          "TZP",
+          "AZM"
+        ],
+        "line": 3,
+        "status": "CANDIDATE",
+        "pct_resistant": 8.2,
+        "isolates": 85,
+        "per_organism": {
+          "Haemophilus influenzae": 0.0,
+          "Klebsiella pneumoniae": 11.1,
+          "Pseudomonas aeruginosa": 14.3,
+          "Staphylococcus aureus": 21.4,
+          "Streptococcus pneumoniae": 3.6
+        },
+        "tier": 1,
+        "tier_name": "SAFE",
+        "aware": "Watch",
+        "restriction": "justify",
+        "reason": "prescriber justification required",
+        "dosing": "Pip-tazo 4.5 g IV q6h + Azithromycin 500 mg q24h"
+      },
+      {
+        "regimen": "Ceftriaxone + Azithromycin",
+        "drugs": [
+          "CRO",
+          "AZM"
+        ],
+        "line": 1,
+        "status": "CANDIDATE",
+        "pct_resistant": 16.5,
+        "isolates": 85,
+        "per_organism": {
+          "Haemophilus influenzae": 5.6,
+          "Klebsiella pneumoniae": 11.1,
+          "Pseudomonas aeruginosa": 100.0,
+          "Staphylococcus aureus": 21.4,
+          "Streptococcus pneumoniae": 3.6
+        },
+        "tier": 2,
+        "tier_name": "USE WITH CAUTION",
+        "aware": "Watch",
+        "restriction": "free",
+        "reason": "",
+        "dosing": "Ceftriaxone 2 g IV q24h + Azithromycin 500 mg IV q24h"
+      },
+      {
+        "regimen": "Amoxicillin-clavulanate + Azithromycin",
+        "drugs": [
+          "AMC",
+          "AZM"
+        ],
+        "line": 2,
+        "status": "CANDIDATE",
+        "pct_resistant": 17.6,
+        "isolates": 85,
+        "per_organism": {
+          "Haemophilus influenzae": 0.0,
+          "Klebsiella pneumoniae": 22.2,
+          "Pseudomonas aeruginosa": 100.0,
+          "Staphylococcus aureus": 21.4,
+          "Streptococcus pneumoniae": 3.6
+        },
+        "tier": 2,
+        "tier_name": "USE WITH CAUTION",
+        "aware": "Watch",
+        "restriction": "free",
+        "reason": "",
+        "dosing": "Amox-clav 1.2 g IV q8h + Azithromycin 500 mg q24h"
+      }
+    ],
+    "excluded": [],
+    "patient_flags": [],
+    "audit_hash": "7f498a21f0d1c203"
+  },
+  "icu_B | Hospital-acquired / ventilator-associated pneumonia": {
+    "syndrome": "Hospital-acquired / ventilator-associated pneumonia",
+    "specimen": "Resp-VAP",
+    "decision": {
+      "action": "RECOMMEND",
+      "regimen": "Meropenem + Colistin",
+      "tier": "SAFE",
+      "message": "Meropenem + Colistin: 1.8% of local resp-vap isolates resistant (requires Infectious Disease approval)"
+    },
+    "ranked": [
+      {
+        "regimen": "Meropenem + Colistin",
+        "drugs": [
+          "MEM",
+          "COL"
+        ],
+        "line": 3,
+        "status": "CANDIDATE",
+        "pct_resistant": 1.8,
+        "isolates": 168,
+        "per_organism": {
+          "Acinetobacter baumannii": 0.0,
+          "Escherichia coli": 0.0,
+          "Klebsiella pneumoniae": 0.0,
+          "Pseudomonas aeruginosa": 0.0,
+          "Staphylococcus aureus": 16.7
+        },
+        "tier": 1,
+        "tier_name": "SAFE",
+        "aware": "Reserve",
+        "restriction": "id_approval",
+        "reason": "requires Infectious Disease approval",
+        "dosing": "Meropenem 1 g q8h + Colistin 9 MU load then 4.5 MU q12h"
+      },
+      {
+        "regimen": "Meropenem + Colistin + Linezolid",
+        "drugs": [
+          "MEM",
+          "COL",
+          "LNZ"
+        ],
+        "line": 3,
+        "status": "CANDIDATE",
+        "pct_resistant": 0.0,
+        "isolates": 168,
+        "per_organism": {
+          "Acinetobacter baumannii": 0.0,
+          "Escherichia coli": 0.0,
+          "Klebsiella pneumoniae": 0.0,
+          "Pseudomonas aeruginosa": 0.0,
+          "Staphylococcus aureus": 0.0
+        },
+        "tier": 1,
+        "tier_name": "SAFE",
+        "aware": "Reserve",
+        "restriction": "id_approval",
+        "reason": "requires Infectious Disease approval",
+        "dosing": "as above + Linezolid 600 mg IV q12h"
+      },
+      {
+        "regimen": "Cefoperazone-sulbactam",
+        "drugs": [
+          "CSL"
+        ],
+        "line": 1,
+        "status": "CANDIDATE",
+        "pct_resistant": 11.9,
+        "isolates": 168,
+        "per_organism": {
+          "Acinetobacter baumannii": 6.5,
+          "Escherichia coli": 14.3,
+          "Klebsiella pneumoniae": 15.9,
+          "Pseudomonas aeruginosa": 7.1,
+          "Staphylococcus aureus": 16.7
+        },
+        "tier": 2,
+        "tier_name": "USE WITH CAUTION",
+        "aware": "Watch",
+        "restriction": "justify",
+        "reason": "prescriber justification required",
+        "dosing": "Cefop-sulb 3 g IV q12h"
+      },
+      {
+        "regimen": "Piperacillin-tazobactam",
+        "drugs": [
+          "TZP"
+        ],
+        "line": 1,
+        "status": "CANDIDATE",
+        "pct_resistant": 18.5,
+        "isolates": 168,
+        "per_organism": {
+          "Acinetobacter baumannii": 45.2,
+          "Escherichia coli": 7.1,
+          "Klebsiella pneumoniae": 15.9,
+          "Pseudomonas aeruginosa": 7.1,
+          "Staphylococcus aureus": 16.7
+        },
+        "tier": 2,
+        "tier_name": "USE WITH CAUTION",
+        "aware": "Watch",
+        "restriction": "justify",
+        "reason": "prescriber justification required",
+        "dosing": "Pip-tazo 4.5 g IV q6h (extended infusion)"
+      },
+      {
+        "regimen": "Meropenem",
+        "drugs": [
+          "MEM"
+        ],
+        "line": 2,
+        "status": "CANDIDATE",
+        "pct_resistant": 16.7,
+        "isolates": 168,
+        "per_organism": {
+          "Acinetobacter baumannii": 29.0,
+          "Escherichia coli": 7.1,
+          "Klebsiella pneumoniae": 14.3,
+          "Pseudomonas aeruginosa": 14.3,
+          "Staphylococcus aureus": 16.7
+        },
+        "tier": 2,
+        "tier_name": "USE WITH CAUTION",
+        "aware": "Watch",
+        "restriction": "id_approval",
+        "reason": "requires Infectious Disease approval",
+        "dosing": "Meropenem 1 g IV q8h (extended infusion)"
+      }
+    ],
+    "excluded": [],
+    "patient_flags": [],
+    "audit_hash": "ca6370b50aec7af5"
+  },
+  "icu_B | Intra-abdominal infection (secondary peritonitis)": {
+    "syndrome": "Intra-abdominal infection (secondary peritonitis)",
+    "specimen": "Peritoneal",
+    "decision": {
+      "action": "RECOMMEND",
+      "regimen": "Piperacillin-tazobactam",
+      "tier": "USE WITH CAUTION",
+      "message": "Piperacillin-tazobactam: 20.7% of local peritoneal isolates resistant (prescriber justification required)"
+    },
+    "ranked": [
+      {
+        "regimen": "Piperacillin-tazobactam",
+        "drugs": [
+          "TZP"
+        ],
+        "line": 1,
+        "status": "CANDIDATE",
+        "pct_resistant": 20.7,
+        "isolates": 111,
+        "per_organism": {
+          "Acinetobacter baumannii": 66.7,
+          "Enterococcus spp.": 22.2,
+          "Escherichia coli": 14.3,
+          "Klebsiella pneumoniae": 32.3,
+          "Pseudomonas aeruginosa": 0.0
+        },
+        "tier": 2,
+        "tier_name": "USE WITH CAUTION",
+        "aware": "Watch",
+        "restriction": "justify",
+        "reason": "prescriber justification required",
+        "dosing": "Pip-tazo 4.5 g IV q6h"
+      },
+      {
+        "regimen": "Cefoperazone-sulbactam",
+        "drugs": [
+          "CSL"
+        ],
+        "line": 1,
+        "status": "CANDIDATE",
+        "pct_resistant": 30.6,
+        "isolates": 111,
+        "per_organism": {
+          "Acinetobacter baumannii": 0.0,
+          "Enterococcus spp.": 100.0,
+          "Escherichia coli": 14.3,
+          "Klebsiella pneumoniae": 25.8,
+          "Pseudomonas aeruginosa": 10.0
+        },
+        "tier": 3,
+        "tier_name": "NO RELIABLE EMPIRIC OPTION",
+        "aware": "Watch",
+        "restriction": "justify",
+        "reason": "prescriber justification required",
+        "dosing": "Cefop-sulb 3 g IV q12h"
+      },
+      {
+        "regimen": "Ertapenem",
+        "drugs": [
+          "ETP"
+        ],
+        "line": 2,
+        "status": "CANDIDATE",
+        "pct_resistant": 41.4,
+        "isolates": 111,
+        "per_organism": {
+          "Acinetobacter baumannii": 100.0,
+          "Enterococcus spp.": 100.0,
+          "Escherichia coli": 14.3,
+          "Klebsiella pneumoniae": 25.8,
+          "Pseudomonas aeruginosa": 100.0
+        },
+        "tier": 3,
+        "tier_name": "NO RELIABLE EMPIRIC OPTION",
+        "aware": "Watch",
+        "restriction": "justify",
+        "reason": "prescriber justification required",
+        "dosing": "Ertapenem 1 g IV q24h"
+      },
+      {
+        "regimen": "Meropenem",
+        "drugs": [
+          "MEM"
+        ],
+        "line": 2,
+        "status": "CANDIDATE",
+        "pct_resistant": 31.5,
+        "isolates": 111,
+        "per_organism": {
+          "Acinetobacter baumannii": 66.7,
+          "Enterococcus spp.": 100.0,
+          "Escherichia coli": 14.3,
+          "Klebsiella pneumoniae": 25.8,
+          "Pseudomonas aeruginosa": 0.0
+        },
+        "tier": 3,
+        "tier_name": "NO RELIABLE EMPIRIC OPTION",
+        "aware": "Watch",
+        "restriction": "id_approval",
+        "reason": "requires Infectious Disease approval",
+        "dosing": "Meropenem 1 g IV q8h"
+      }
+    ],
+    "excluded": [],
+    "patient_flags": [],
+    "audit_hash": "b36cd402a2c67e20"
+  }
+}

@@ -1,0 +1,16 @@
+CODE,NAME,AWARE,RESTRICTION,FORMULARY,CULTURE_EVALUABLE,CONTRAINDICATED_IN
+AMC,Amoxicillin-clavulanate,Access,free,1,1,penicillin_anaphylaxis
+AMK,Amikacin,Access,free,1,1,aki
+DOX,Doxycycline,Access,free,1,0,none
+CRO,Ceftriaxone,Watch,free,1,1,none
+AZM,Azithromycin,Watch,free,1,0,none
+TZP,Piperacillin-tazobactam,Watch,justify,1,1,penicillin_anaphylaxis
+CSL,Cefoperazone-sulbactam,Watch,justify,1,1,none
+ETP,Ertapenem,Watch,justify,1,1,none
+IPM,Imipenem,Watch,id_approval,1,1,none
+MEM,Meropenem,Watch,id_approval,1,1,none
+VAN,Vancomycin,Watch,justify,1,1,none
+TEC,Teicoplanin,Watch,justify,1,1,none
+COL,Colistin,Reserve,id_approval,1,1,aki
+PMB,Polymyxin B,Reserve,id_approval,1,1,aki
+LNZ,Linezolid,Reserve,id_approval,1,1,none
