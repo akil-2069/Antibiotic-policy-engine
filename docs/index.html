@@ -89,6 +89,10 @@ button.ghost{background:transparent;color:var(--accent)}
 .steps b{color:var(--ink)}
 footer{margin-top:28px;font-size:.8rem;color:var(--muted);max-width:80ch}
 .err{color:var(--stop);font-size:.82rem}
+.ragrow{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}
+.ragval{font-weight:600;margin-top:2px}
+.ctxlist{margin:8px 0 0;padding-left:18px;font-size:.82rem;color:var(--muted);display:flex;flex-direction:column;gap:4px}
+.ctxlist b{color:var(--ink);font-family:var(--f-mono);font-weight:500}
 .okmsg{color:var(--safe);background:var(--safe-bg);font-size:.82rem;padding:6px 10px;border-radius:6px}
 .samples{display:flex;flex-direction:column;gap:8px;border-top:1px solid var(--line);padding-top:12px}
 .slbl{font-weight:600;font-size:.85rem}
@@ -149,6 +153,19 @@ button.sm{padding:4px 10px;font-size:.8rem}
 
   <main class="main">
     <section id="decision" class="decision" aria-live="polite"></section>
+
+    <section class="panel" id="ragPanel" hidden>
+      <div class="row"><h3>AI recommendation · RAG + LLM, verified by rules</h3><span class="chip" id="ragGen"></span></div>
+      <p class="note" style="margin:4px 0 12px">A local LLM read the retrieved guideline, antibiogram and policy documents and proposed a regimen. The rule engine then checked it. Generated offline in the project notebook.</p>
+      <div class="ragrow">
+        <div><span class="slbl">LLM proposed</span><div id="ragProp" class="ragval"></div></div>
+        <div><span class="slbl">Rule check</span><div id="ragStatus" class="ragval"></div></div>
+        <div><span class="slbl">Confidence</span><div id="ragConf" class="ragval"></div></div>
+      </div>
+      <p id="ragReason" style="margin:12px 0 4px"></p>
+      <p id="ragOverride" class="err" hidden></p>
+      <details style="margin-top:8px"><summary class="note" style="cursor:pointer">Retrieved sources the LLM used</summary><ul id="ragCtx" class="ctxlist"></ul></details>
+    </section>
 
     <section class="panel">
       <div class="row"><h3>Every ICMR regimen, ranked for this ICU</h3><span class="note">Select a row to see which organisms it misses</span></div>
@@ -299,6 +316,7 @@ function render(){
   const record={icu:icuKey,syndrome,specimen:res.specimen,patient_flags:flags,decision:res.decision,
     candidates:res.ranked.map(r=>({regimen:r.regimen,pct_resistant:r.pct,isolates:r.isolates,tier:TN[r.tier],aware:r.aware,policy:r.restr})),
     excluded:res.excluded,thresholds:{safe_max:SAFE,caution_max:CAUTION,min_isolates:MIN_ISO}};
+  renderRag(icuKey, syndrome, flags);
   fingerprint(record).then(fp=>{record.fingerprint=fp; lastRecord=record; $('audit').textContent=JSON.stringify(record,null,2);});
 }
 
@@ -335,6 +353,27 @@ $('copy').addEventListener('click',()=>{
     .catch(()=>{const r=document.createRange(); r.selectNodeContents($('audit')); const s=getSelection(); s.removeAllRanges(); s.addRange(r);});
 });
 ['icu','syn','aki','pen'].forEach(id=>$(id).addEventListener('change',()=>{selected=null;render();}));
+
+// ---- precomputed RAG + LLM results (docs/rag_results.json, exported by the notebook)
+let RAG = null;
+fetch('rag_results.json').then(r => r.ok ? r.json() : null).then(j => { RAG = j; render(); }).catch(() => {});
+function renderRag(icuKey, syndrome, flags){
+  const p = $('ragPanel');
+  const key = flags.slice().sort().join('|');
+  const r = RAG && RAG.find(x => x.icu === icuKey && x.syndrome === syndrome && x.flags.slice().sort().join('|') === key);
+  if(!r){ p.hidden = true; return; }
+  p.hidden = false;
+  $('ragGen').textContent = r.generator === 'llm' ? 'LLM: Ollama qwen2.5 · ' + (r.retrieval === 'faiss' ? 'FAISS' : 'TF-IDF') : 'Template generator (no LLM)';
+  $('ragGen').className = 'chip ' + (r.generator === 'llm' ? 't1' : 't2');
+  $('ragProp').textContent = (r.proposal && r.proposal.regimen) || '(no valid answer)';
+  const st = r.status === 'OVERRIDDEN' ? 't3' : (r.status === 'AGREE' ? 't1' : 't2');
+  $('ragStatus').innerHTML = `<span class="chip ${st}">${esc(r.status)}</span>`;
+  $('ragConf').textContent = `${r.confidence} (${r.level})`;
+  $('ragReason').textContent = (r.proposal && r.proposal.reasoning) || '';
+  const ov = $('ragOverride'); ov.hidden = !r.override_reason; ov.textContent = r.override_reason ? 'Overridden: ' + r.override_reason + ' Final: ' + r.final : '';
+  const cites = new Set((r.proposal && r.proposal.citations) || []);
+  $('ragCtx').innerHTML = r.context.map(c => `<li${cites.has(c.id) ? ' style="color:var(--ink)"' : ''}><b>${esc(c.id)}</b> ${esc(c.source)}${cites.has(c.id) ? ' · cited' : ''}: ${esc(c.text)}</li>`).join('');
+}
 fill(); render();
 </script>
 

@@ -1,0 +1,19 @@
+{
+  "cases": 30,
+  "generator": "llm",
+  "retrieval": "faiss",
+  "valid_json_rate": 1.0,
+  "agreement_with_rules": 0.4,
+  "accepted_alternative": 0.1,
+  "overridden_by_rules": 0.5,
+  "mean_confidence": 0.535,
+  "mean_grounding": 1.0,
+  "mean_seconds_per_case": 6.7,
+  "confidence_levels": {
+    "LOW": 15,
+    "HIGH": 13,
+    "MEDIUM": 2
+  },
+  "overridden_icu_A": 14,
+  "overridden_icu_B": 1
+}

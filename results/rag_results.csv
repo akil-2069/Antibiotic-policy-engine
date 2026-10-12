@@ -1,0 +1,31 @@
+icu,syndrome,flags,llm_proposal,final,status,override_reason,confidence,level
+icu_A,Acute undifferentiated fever (severe),none,Ceftriaxone + Doxycycline,ESCALATE,OVERRIDDEN,"LLM proposed 'Ceftriaxone + Doxycycline', but every guideline regimen is >30% resistant in this ICU.",0.2,LOW
+icu_A,Acute undifferentiated fever (severe),aki,Ceftriaxone + Doxycycline,ESCALATE,OVERRIDDEN,"LLM proposed 'Ceftriaxone + Doxycycline', but every guideline regimen is >30% resistant in this ICU.",0.2,LOW
+icu_A,Acute undifferentiated fever (severe),penicillin_anaphylaxis,Ceftriaxone + Doxycycline,ESCALATE,OVERRIDDEN,"LLM proposed 'Ceftriaxone + Doxycycline', but every guideline regimen is >30% resistant in this ICU.",0.2,LOW
+icu_A,Sepsis / septic shock (unclear focus),none,Meropenem + Vancomycin,Meropenem + Colistin + Vancomycin,OVERRIDDEN,'Meropenem + Vancomycin' is 34.8% resistant locally (no reliable option).,0.2,LOW
+icu_A,Sepsis / septic shock (unclear focus),aki,Imipenem + Vancomycin,ESCALATE,OVERRIDDEN,"LLM proposed 'Imipenem + Vancomycin', but every guideline regimen is >30% resistant in this ICU.",0.2,LOW
+icu_A,Sepsis / septic shock (unclear focus),penicillin_anaphylaxis,Meropenem + Vancomycin,Meropenem + Colistin + Vancomycin,OVERRIDDEN,'Meropenem + Vancomycin' is 34.8% resistant locally (no reliable option).,0.2,LOW
+icu_A,Severe community-acquired pneumonia (ICU),none,Ceftriaxone + Azithromycin,ESCALATE,OVERRIDDEN,"LLM proposed 'Ceftriaxone + Azithromycin', but every guideline regimen is >30% resistant in this ICU.",0.2,LOW
+icu_A,Severe community-acquired pneumonia (ICU),aki,Ceftriaxone + Azithromycin,ESCALATE,OVERRIDDEN,"LLM proposed 'Ceftriaxone + Azithromycin', but every guideline regimen is >30% resistant in this ICU.",0.2,LOW
+icu_A,Severe community-acquired pneumonia (ICU),penicillin_anaphylaxis,Ceftriaxone + Azithromycin,ESCALATE,OVERRIDDEN,"LLM proposed 'Ceftriaxone + Azithromycin', but every guideline regimen is >30% resistant in this ICU.",0.2,LOW
+icu_A,Hospital-acquired / ventilator-associated pneumonia,none,Cefoperazone-sulbactam,Meropenem + Colistin,OVERRIDDEN,'Cefoperazone-sulbactam' is 55.1% resistant locally (no reliable option).,0.2,LOW
+icu_A,Hospital-acquired / ventilator-associated pneumonia,aki,Piperacillin-tazobactam,ESCALATE,OVERRIDDEN,"LLM proposed 'Piperacillin-tazobactam', but every guideline regimen is >30% resistant in this ICU.",0.2,LOW
+icu_A,Hospital-acquired / ventilator-associated pneumonia,penicillin_anaphylaxis,Meropenem + Colistin + Linezolid,Meropenem + Colistin + Linezolid,ACCEPTED (alternative),,0.8,HIGH
+icu_A,Intra-abdominal infection (secondary peritonitis),none,Piperacillin-tazobactam,ESCALATE,OVERRIDDEN,"LLM proposed 'Piperacillin-tazobactam', but every guideline regimen is >30% resistant in this ICU.",0.2,LOW
+icu_A,Intra-abdominal infection (secondary peritonitis),aki,Piperacillin-tazobactam,ESCALATE,OVERRIDDEN,"LLM proposed 'Piperacillin-tazobactam', but every guideline regimen is >30% resistant in this ICU.",0.2,LOW
+icu_A,Intra-abdominal infection (secondary peritonitis),penicillin_anaphylaxis,Cefoperazone-sulbactam,ESCALATE,OVERRIDDEN,"LLM proposed 'Cefoperazone-sulbactam', but every guideline regimen is >30% resistant in this ICU.",0.2,LOW
+icu_B,Acute undifferentiated fever (severe),none,Piperacillin-tazobactam + Doxycycline,Piperacillin-tazobactam + Doxycycline,AGREE,,0.85,HIGH
+icu_B,Acute undifferentiated fever (severe),aki,Piperacillin-tazobactam + Doxycycline,Piperacillin-tazobactam + Doxycycline,AGREE,,0.85,HIGH
+icu_B,Acute undifferentiated fever (severe),penicillin_anaphylaxis,Meropenem + Doxycycline,Meropenem + Doxycycline,AGREE,,0.85,HIGH
+icu_B,Sepsis / septic shock (unclear focus),none,Cefoperazone-sulbactam + Amikacin + Teicoplanin,Cefoperazone-sulbactam + Amikacin + Teicoplanin,AGREE,,1.0,HIGH
+icu_B,Sepsis / septic shock (unclear focus),aki,Imipenem + Vancomycin,Imipenem + Vancomycin,AGREE,,0.85,HIGH
+icu_B,Sepsis / septic shock (unclear focus),penicillin_anaphylaxis,Cefoperazone-sulbactam + Amikacin + Teicoplanin,Cefoperazone-sulbactam + Amikacin + Teicoplanin,AGREE,,1.0,HIGH
+icu_B,Severe community-acquired pneumonia (ICU),none,Piperacillin-tazobactam + Azithromycin,Piperacillin-tazobactam + Azithromycin,AGREE,,1.0,HIGH
+icu_B,Severe community-acquired pneumonia (ICU),aki,Piperacillin-tazobactam + Azithromycin,Piperacillin-tazobactam + Azithromycin,AGREE,,1.0,HIGH
+icu_B,Severe community-acquired pneumonia (ICU),penicillin_anaphylaxis,Ceftriaxone + Azithromycin,Ceftriaxone + Azithromycin,AGREE,,0.85,HIGH
+icu_B,Hospital-acquired / ventilator-associated pneumonia,none,Meropenem + Colistin,Meropenem + Colistin,AGREE,,1.0,HIGH
+icu_B,Hospital-acquired / ventilator-associated pneumonia,aki,Piperacillin-tazobactam,Piperacillin-tazobactam,ACCEPTED (alternative),,0.65,MEDIUM
+icu_B,Hospital-acquired / ventilator-associated pneumonia,penicillin_anaphylaxis,Cefoperazone-sulbactam,Cefoperazone-sulbactam,ACCEPTED (alternative),,0.65,MEDIUM
+icu_B,Intra-abdominal infection (secondary peritonitis),none,Piperacillin-tazobactam,Piperacillin-tazobactam,AGREE,,0.85,HIGH
+icu_B,Intra-abdominal infection (secondary peritonitis),aki,Piperacillin-tazobactam,Piperacillin-tazobactam,AGREE,,0.85,HIGH
+icu_B,Intra-abdominal infection (secondary peritonitis),penicillin_anaphylaxis,Cefoperazone-sulbactam,ESCALATE,OVERRIDDEN,"LLM proposed 'Cefoperazone-sulbactam', but every guideline regimen is >30% resistant in this ICU.",0.2,LOW
